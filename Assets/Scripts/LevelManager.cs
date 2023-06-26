@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 namespace GalacticCrusadeVolTwo
 {
     public class LevelManager : MonoBehaviour
@@ -15,9 +15,11 @@ namespace GalacticCrusadeVolTwo
         [SerializeField] private Transform camPos;
         [SerializeField] private GameObject shieldRef;
         [SerializeField] private GameObject rapidFireRef;
+        [SerializeField] private GameObject healthPickUpRef;
         [SerializeField] private Transform powerUpSpawnPos;
         [SerializeField] private double spawnDelayShield;
         [SerializeField] private double spawnDelayRapid;
+        [SerializeField] private double spawnDelayHealth;
         [SerializeField] private Image playerHealthUI;
         [SerializeField] private Sprite playHealthFull;
         [SerializeField] private Sprite playerHealth80;
@@ -45,6 +47,7 @@ namespace GalacticCrusadeVolTwo
             lastSpawnPause = 4;
             spawnDelayRapid = 30;
             spawnDelayShield = 10;
+            spawnDelayHealth = 20;
             randNum = 0;
             tileRef = Instantiate(tileRef, tileSpawnPos.transform.position += new Vector3(0, 0, 0), Quaternion.identity);
             sNum = 0;
@@ -59,6 +62,7 @@ namespace GalacticCrusadeVolTwo
             PowerUpSpawn();
             UpdateHealth();
             PlaySoundEffects();
+            GameOver();
         }
 
         private void PlaySoundEffects()
@@ -80,6 +84,20 @@ namespace GalacticCrusadeVolTwo
                 sNum = score + 1;
                 Debug.Log("Pointgainedsound");
             }
+
+        }
+        private void GameOver()
+        {
+            if (PlayerController.hPlanetLives <= 0)
+            {
+                SceneManager.LoadScene(2);
+            }
+
+            if (PlayerController.pLives <= 0)
+            {
+                SceneManager.LoadScene(2);
+            }
+
 
         }
         private void UpdateHealth()
@@ -176,6 +194,16 @@ namespace GalacticCrusadeVolTwo
 
             spawnDelayRapid -= Time.deltaTime;
 
+
+            if (spawnDelayHealth < 0)
+            {
+                randNum = Random.Range(-6, 6);
+                Instantiate(healthPickUpRef, powerUpSpawnPos.transform.position = new Vector3(randNum, camPos.transform.position.y + 10, 0), Quaternion.identity);
+                spawnDelayHealth = Random.Range(30, 50);
+
+
+            }
+            spawnDelayHealth -= Time.deltaTime;
         }
 
 

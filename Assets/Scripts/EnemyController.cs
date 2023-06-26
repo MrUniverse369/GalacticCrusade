@@ -32,7 +32,7 @@ namespace GalacticCrusadeVolTwo
         }
         private void DestroyEnemy()
         {
-            Destroy(this.gameObject, 15f);
+            Destroy(this.gameObject, 16f);
             if (lives <= 0)
             {
                 Destroy(gameObject);
@@ -83,6 +83,14 @@ namespace GalacticCrusadeVolTwo
             if (collision.gameObject.CompareTag("PlayerBullet"))
             {
                 lives -= 1;
+
+            }
+
+            if (collision.gameObject.CompareTag("HomePlanet"))
+            {
+                PlayerController.hPlanetLives -= 1;
+                HomePlaneLives.shieldCount -= 1;
+                Debug.Log("Home Planet took a Hit");
 
             }
         }

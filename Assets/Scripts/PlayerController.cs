@@ -24,6 +24,7 @@ namespace GalacticCrusadeVolTwo
         static public bool shieldOn;
         static public bool powerObtained;
         public static int pLives;
+        public static int hPlanetLives;
         private double spawnPause;
         private float xAxis;
         private Vector3 vel;
@@ -43,8 +44,9 @@ namespace GalacticCrusadeVolTwo
 
         // Start is called before the first frame update
         void Start()
-        { 
+        {
             pLives = 5;
+            hPlanetLives = 10;
             rb2d = GetComponent<Rigidbody2D>();
             stopHmovement = false;
             spawnPause = -1;
@@ -175,6 +177,16 @@ namespace GalacticCrusadeVolTwo
                 rapidFireLifeTime = 15;
                 powerObtained = true;
             }
+
+            if (collision.gameObject.CompareTag("HealthPickUp"))
+            {
+                Debug.Log("HealthPickedUp");
+                pLives = 5;
+
+
+            }
+
+
 
             if (collision.gameObject.CompareTag("Enemy") && shieldOn != true)
             {

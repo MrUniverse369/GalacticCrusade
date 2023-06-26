@@ -9,10 +9,11 @@ namespace GalacticCrusadeVolTwo
     public class MainMenue : MonoBehaviour
     {
 
+        [SerializeField] private GameObject playerRef;
 
         private void Start()
         {
-
+            
         }
         static public bool resumeGame = true;
         [SerializeField] private GameObject pauseMenueUI;
