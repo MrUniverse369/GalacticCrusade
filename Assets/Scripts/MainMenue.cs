@@ -10,14 +10,15 @@ namespace GalacticCrusadeVolTwo
     {
 
         [SerializeField] private GameObject playerRef;
+        [SerializeField] private GameObject pauseMenueUI;
+        [SerializeField] private GameObject gameOverUI;
+        static public bool resumeGame = true;
+
 
         private void Start()
         {
-            
-        }
-        static public bool resumeGame = true;
-        [SerializeField] private GameObject pauseMenueUI;
 
+        }
 
 
         public void RestartGame()
@@ -60,7 +61,11 @@ namespace GalacticCrusadeVolTwo
             {
                 Time.timeScale = 1f;
             }
-
+            if (HomePlaneLives.shieldCount < 1 || PlayerController.pLives < 1)
+            {
+                gameOverUI.SetActive(true);
+                Debug.Log("Game over Ui is On ");
+            }
         }
     }
 }

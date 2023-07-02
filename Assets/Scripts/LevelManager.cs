@@ -7,6 +7,7 @@ namespace GalacticCrusadeVolTwo
 {
     public class LevelManager : MonoBehaviour
     {
+        [SerializeField] private float respawnCounter;
         [SerializeField] private GameObject pRef;
         [SerializeField] private GameObject enemyRef;
         [SerializeField] private Transform enemySpawnPos;
@@ -29,6 +30,7 @@ namespace GalacticCrusadeVolTwo
         [SerializeField] private Sprite playerHealth0;
         [SerializeField] private AudioClip itemPickSound;
         [SerializeField] private AudioClip pointGainedSound;
+
         public static int score;
         int sNum;
         private AudioSource aSref;
@@ -90,12 +92,12 @@ namespace GalacticCrusadeVolTwo
         {
             if (PlayerController.hPlanetLives <= 0)
             {
-                SceneManager.LoadScene(2);
+              //  SceneManager.LoadScene(2);
             }
 
             if (PlayerController.pLives <= 0)
             {
-                SceneManager.LoadScene(2);
+               // SceneManager.LoadScene(2);
             }
 
 
@@ -219,6 +221,11 @@ namespace GalacticCrusadeVolTwo
 
 
             TileSpawnPause -= Time.deltaTime;
+        }
+
+        private void Respawn()
+        {
+            pRef.gameObject.SetActive(false);
         }
 
 
